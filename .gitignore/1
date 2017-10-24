@@ -1,0 +1,184 @@
+import datetime
+from operator import itemgetter
+last5temps=[]
+def celsius2kelvin(celsius):
+res1=celsius+273.15
+res1=float(res1)
+return(float(format(res1,&#39;.2f&#39;)))
+def celsius2fahrenheit(celsius):
+res1=1.8*celsius+32
+res1=float(res1)
+return(float(format(res1,&#39;.2f&#39;)))
+def kelvin2celsius(kelvin):
+res1=kelvin-273.15
+res1=float(res1)
+return(float(format(res1,&#39;.2f&#39;)))
+def kelvin2fahrenheit(kelvin):
+res1=1.8*(kelvin-273.15)+32
+res1=float(res1)
+return(float(format(res1,&#39;.2f&#39;)))
+def fahrenheit2celsius(F):
+res1=(F-32)*5/9
+res1=float(res1)
+return(float(format(res1,&#39;.2f&#39;)))
+def fahrenheit2kelvin(F):
+res1=((F-32)*5/9)+273.15
+res1=float(res1)
+return(float(format(res1,&#39;.2f&#39;)))
+def display(L):
+print(&quot; -- -- -- -- -- -- -- LAST FIVE ENTRIES -- -- -- -
+-- -- -- - &quot;)
+L1=[(&#39;FROM VALUE&#39;,&#39;FROM UNIT&#39;,&#39;TO VALUE&#39;,&#39;TO UNIT&#39;,&#39;DATE&#39;)]
+L1+=L
+width=0
+for i in L1:
+for j in i:
+if len(str(j))&gt;width:
+
+width=len(str(j))
+for item in L1:
+print(&quot;{}| {}| {}| {}|
+{}&quot;.format(str(item[0]).ljust(width),str(item[1]).ljust(width),str(ite
+m[2]).ljust(width),str(item[3]).ljust(width),str(item[4]).ljust(width)
+))
+while(True):
+print(&quot;-- -- -- -- -- -Temperature Converter-- -- -- -- -- -- &quot;)
+print(&quot;1. Enter new value&quot;)
+print(&quot;2. View last 5 entries&quot;)
+print(&quot;Any other key to exit the converter&quot;)
+choice=input(&quot;\nEnter Choice: &quot;)
+if(choice==&#39;1&#39;):
+print(&quot;Enter the new temperature in the following format:&quot;)
+print(&quot;TEMPERATURE_VALUE(space)UNIT, eg: 21 C&quot;)
+print(&quot;Supported Units are K(kelvin), F(fahrenheit), and
+C(celsius)&quot;)
+flag=True
+while(flag):
+tempin=input(&quot;Enter the temperature value: &quot;)
+L=tempin.split()
+#print(L)
+if len(L)!=2:
+print(&quot;INCORRECT ENTRY!&quot;)
+print(&quot;Enter the new temperature in the following
+format:&quot;)
+print(&quot;TEMPERATURE_VALUE(space)UNIT, eg: 21 C&quot;)
+print(&quot;Supported Units are K(kelvin), F(fahrenheit),
+and C(celsius)&quot;)
+continue
+try:
+res1=float(L[0])
+except ValueError:
+print(&quot;INCORRECT ENTRY!&quot;)
+print(&quot;Enter the new temperature in the following
+format:&quot;)
+print(&quot;TEMPERATURE_VALUE(space)UNIT, eg: 21 C&quot;)
+print(&quot;Supported Units are K(kelvin), F(fahrenheit),
+and C(celsius)&quot;)
+continue
+if L[1] not in [&#39;C&#39;,&#39;K&#39;,&#39;F&#39;]:
+print(&quot;INCORRECT ENTRY!&quot;)
+print(&quot;Enter the new temperature in the following
+format:&quot;)
+print(&quot;TEMPERATURE_VALUE(space)UNIT, eg: 21 C&quot;)
+print(&quot;Supported Units are K(kelvin), F(fahrenheit),
+and C(celsius)&quot;)
+continue
+print(&quot;Choose appropriate option&quot;)
+res=float(format(res1,&#39;.2f&#39;))
+while(True):
+
+if(L[1]==&#39;K&#39;):
+print(&quot;1. Convert to Fahrenheit&quot;)
+print(&quot;2. Convert to Celsius&quot;)
+choice=input(&quot;Enter choice: &quot;)
+if choice==&#39;1&#39;:
+res1=kelvin2fahrenheit(res)
+tovalue=&#39;F&#39;
+now=datetime.datetime.now()
+time1=now.strftime(&quot;%Y-%m- %d %H:%M&quot;)
+elif choice==&#39;2&#39;:
+res1=kelvin2celsius(res)
+tovalue=&#39;C&#39;
+now=datetime.datetime.now()
+time1=now.strftime(&quot;%Y-%m- %d %H:%M&quot;)
+else:
+print(&quot;INCORRECT INPUT&quot;)
+continue
+elif(L[1]==&#39;C&#39;):
+print(&quot;1. Convert to Fahrenheit&quot;)
+print(&quot;2. Convert to Kelvin&quot;)
+choice=input(&quot;Enter choice: &quot;)
+if choice==&#39;1&#39;:
+res1=celsius2fahrenheit(res)
+tovalue=&#39;F&#39;
+now=datetime.datetime.now()
+time1=now.strftime(&quot;%Y-%m- %d %H:%M&quot;)
+elif choice==&#39;2&#39;:
+res1=celsius2kelvin(res)
+tovalue=&#39;K&#39;
+now=datetime.datetime.now()
+time1=now.strftime(&quot;%Y-%m- %d %H:%M&quot;)
+else:
+print(&quot;INCORRECT INPUT&quot;)
+continue
+elif(L[1]==&quot;F&quot;):
+print(&quot;1. Convert to Celsius&quot;)
+print(&quot;2. Convert to Kelvin&quot;)
+choice=input(&quot;Enter choice: &quot;)
+if choice==&#39;1&#39;:
+res1=fahrenheit2celsius(res)
+tovalue=&#39;C&#39;
+now=datetime.datetime.now()
+time1=now.strftime(&quot;%Y-%m- %d %H:%M&quot;)
+elif choice==&#39;2&#39;:
+res1=fahrenheit2kelvin(res)
+tovalue=&#39;K&#39;
+now=datetime.datetime.now()
+time1=now.strftime(&quot;%Y-%m- %d %H:%M&quot;)
+else:
+print(&quot;INCORRECT INPUT&quot;)
+continue
+row=()
+
+row=(res,L[1],res1,tovalue,time1)
+if len(last5temps)==5:
+del(last5temps[0])
+last5temps.append(row)
+#print(last5temps)
+flag=False
+break
+elif choice==&#39;2&#39;:
+while(True):
+print(&quot;Enter appropriate option to sort results&quot;)
+print(&quot;1. ASC Order - FROM VALUE&quot;)
+print(&quot;2. DESC Order - FROM VALUE&quot;)
+print(&quot;3. ASC Order - TO VALUE&quot;)
+print(&quot;4. DESC Order - TO VALUE&quot;)
+print(&quot;5. ASC Order - DATE&quot;)
+print(&quot;6. DESC Order - DATE&quot;)
+print(&quot;Any other key to return to main menu&quot;)
+choice=input(&quot;Enter choice: &quot;)
+if choice==&#39;1&#39;:
+temparr=sorted(last5temps,key=itemgetter(0))
+display(temparr)
+elif choice==&#39;2&#39;:
+temparr=sorted(last5temps,key=itemgetter(0))[::-1]
+display(temparr)
+elif choice==&#39;3&#39;:
+temparr=sorted(last5temps,key=itemgetter(2))
+display(temparr)
+elif choice==&#39;4&#39;:
+temparr=sorted(last5temps,key=itemgetter(2))[::-1]
+display(temparr)
+elif choice==&#39;5&#39;:
+temparr=sorted(last5temps,key=itemgetter(4))
+display(temparr)
+elif choice==&#39;6&#39;:
+temparr=sorted(last5temps,key=itemgetter(4))[::-1]
+display(temparr)
+else:
+break
+
+else:
+print(&quot;Thank You&quot;)
+break
