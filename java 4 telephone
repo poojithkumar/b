@@ -18,19 +18,7 @@ class MissedPhone
 	}
 }
 
-/*class Phone
-{
-	int key;
-	String name_a, phoneNo_a;
 
-	Phone(int k, String n, String p)
-	{
-		key = k;
-		name_a = n;
-		phoneNo_a = p;
-	}
-}
-*/
 class Phone
 {
 	//int key;
